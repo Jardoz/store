@@ -2,6 +2,7 @@
 
 import { Expand, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import { IconButton } from "@/components/ui/iconButton";
 import { Currency } from "@/components/ui/currency";
@@ -13,8 +14,16 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+    const router = useRouter()
+
+    const handleClick = () => {
+      
+        router.push(`/product/${product?.id}`)
+    }
+
   return (
-    <div className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
+    <div  onClick={handleClick} className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
+        {/* Images and Actions */}
       <div className="aspect-square rounded-xl bg-bray-100 relative">
         <Image
           src={product?.images?.[0].url}
