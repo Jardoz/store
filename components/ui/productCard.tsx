@@ -1,5 +1,6 @@
 "use client"
 
+import { MouseEventHandler } from "react";
 import { Expand, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -7,15 +8,17 @@ import { useRouter } from "next/navigation";
 import { IconButton } from "@/components/ui/iconButton";
 import { Currency } from "@/components/ui/currency";
 
-import { Product } from "@/types"
-import { MouseEventHandler } from "react";
 import usePreviewModal from "@/hooks/usePreviewModal";
+import useCart from "@/hooks/useCart";
+
+import { Product } from "@/types"
 
 interface ProductCardProps {
     product: Product
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+    const cart = useCart()
     const router = useRouter()
     const previewModal = usePreviewModal()
 
@@ -28,8 +31,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       event.stopPropagation()
       console.log("onPreview");
       
-      previewModal.onOpen(product)
+      previewModal.onOpen(product);
     }
+
+    const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+      event.stopPropagation();
+      console.log("onAddToCart");
+
+      
+      cart.addItem(product);
+    };
 
   return (
     <div  onClick={handleClick} className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
@@ -48,7 +59,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               icon={<Expand size={20} className="text-gray-600" />}
             />
             <IconButton
-              onClick={() => {}}
+              onClick={onAddToCart}
               icon={<ShoppingCart size={20} className="text-gray-600" />}
             />
           </div>
