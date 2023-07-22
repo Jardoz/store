@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -78,15 +79,17 @@ const CheckoutPage = () => {
       <div className="flex flex-col justify-between">
         <div className="space-y-2">
           <h2 className="text-3xl font-bold leadi lg:text-4xl">
-            We're looking forward!
+            {`We're looking forward!`}
           </h2>
           <div className="dark:text-gray-400">
             Send us your phone number or messenger and we will contact you to
             proceed with your order to deliver it in a fastest way!
           </div>
         </div>
-        <img
+        <Image
           src="https://res.cloudinary.com/dfunrkyrn/image/upload/v1690015792/cow_l8rmao.jpg"
+          width={500}
+          height={500}
           alt=""
           className="object-cover object-center"
         />
